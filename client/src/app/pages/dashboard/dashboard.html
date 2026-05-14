@@ -1,0 +1,167 @@
+<div class="container py-4">
+
+  <!-- HEADER -->
+
+  <div
+    class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+      <h2 class="fw-bold mb-1">
+        Dashboard
+      </h2>
+
+      <p class="text-muted mb-0">
+        Track your monthly spending
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/expenses"
+      class="btn btn-primary">
+
+      + Add Expense
+
+    </a>
+
+  </div>
+
+  <!-- SUMMARY CARDS -->
+
+  <div class="row g-4 mb-4">
+
+    <div class="col-md-6">
+
+      <div
+        class="card p-4 shadow-sm border-0 h-100">
+
+        <h6 class="text-muted mb-2">
+          Total Spent
+        </h6>
+
+        <h2 class="fw-bold">
+          ₹ {{ dashboard?.totalSpent || 0 }}
+        </h2>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div
+        class="card p-4 shadow-sm border-0 h-100">
+
+        <h6 class="text-muted mb-2">
+          Total Categories
+        </h6>
+
+        <h2 class="fw-bold">
+
+          {{
+            dashboard?.categoryBreakdown?.length || 0
+          }}
+
+        </h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY STATE -->
+
+  <div
+    *ngIf="
+      !dashboard?.categoryBreakdown?.length
+    "
+    class="card shadow-sm border-0">
+
+    <div class="card-body text-center py-5">
+
+      <h4 class="mb-3">
+        No expenses added yet
+      </h4>
+
+      <p class="text-muted mb-4">
+
+        Start tracking your spending
+        by adding your first expense.
+
+      </p>
+
+      <a
+        routerLink="/expenses"
+        class="btn btn-primary">
+
+        Add Your First Expense
+
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- CHARTS -->
+
+  <div
+    class="row g-4"
+    *ngIf="
+      dashboard?.categoryBreakdown?.length
+    ">
+
+    <!-- PIE CHART -->
+
+    <div class="col-lg-6">
+
+      <div
+        class="card p-4 shadow-sm border-0 h-100">
+
+        <h5 class="fw-semibold mb-4">
+          Category Breakdown
+        </h5>
+
+        <div class="chart-container">
+
+          <canvas
+            baseChart
+            [data]="pieChartData"
+            [type]="pieChartType">
+          </canvas>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BAR CHART -->
+
+    <div class="col-lg-6">
+
+      <div
+        class="card p-4 shadow-sm border-0 h-100">
+
+        <h5 class="fw-semibold mb-4">
+          Expense Comparison
+        </h5>
+
+        <div class="chart-container">
+
+          <canvas
+            baseChart
+            [data]="barChartData"
+            [type]="barChartType">
+          </canvas>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
